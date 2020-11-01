@@ -10,8 +10,7 @@ class AuthService {
   }
 
   Stream<User> get user {
-    return _auth.onAuthStateChanged
-        .map((FirebaseUser user) => _userFromFirebaseUser(user));
+    return _auth.onAuthStateChanged.map(_userFromFirebaseUser);
   }
 
   // sign in anonymous
@@ -21,6 +20,29 @@ class AuthService {
           await _auth.signInAnonymously(); //only if enable in firebase
       FirebaseUser user = result.user;
       return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  //Register
+  Future registerWithEmailAndPassword(String email, String password) async {
+    try {
+      AuthResult result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      FirebaseUser user = result.user;
+      return _userFromFirebaseUser(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  // signing out
+  Future logout() async {
+    try {
+      return await _auth.signOut();
     } catch (e) {
       print(e.toString());
       return null;

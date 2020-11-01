@@ -1,18 +1,21 @@
 import 'package:coffeemate/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function viewPage;
-  SignIn({this.viewPage});
+  Register({this.viewPage});
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
+  // flutter Global validations
+  final _formKey = GlobalKey<FormState>();
 
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -21,30 +24,34 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0,
-        title: Text('Sign in to CoffeeShop'),
+        title: Text('Sign up for CoffeeShop'),
         actions: <Widget>[
           FlatButton.icon(
             onPressed: () {
               widget.viewPage();
             },
             icon: Icon(Icons.person),
-            label: Text('Register'),
+            label: Text('Sign In'),
           )
         ],
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
         child: Form(
+          key: _formKey, //keep track of form for validation
           child: Column(
             children: <Widget>[
               SizedBox(height: 20),
               TextFormField(
-                onChanged: (val) {
-                  setState(() => email = val);
-                },
-              ),
+                  validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                  onChanged: (val) {
+                    setState(() => email = val);
+                  }),
               SizedBox(height: 20),
               TextFormField(
+                validator: (val) => val.length < 8
+                    ? 'password must be 8 character long or more'
+                    : null,
                 obscureText: true,
                 onChanged: (val) {
                   setState(() => password = val);
@@ -54,13 +61,26 @@ class _SignInState extends State<SignIn> {
               RaisedButton(
                 color: Colors.brown[400],
                 child: Text(
-                  'Sign In',
+                  'Register',
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () {
-                  print(email);
-                  print(password);
+                onPressed: () async {
+                  if (_formKey.currentState.validate()) {
+                    dynamic result = await _auth.registerWithEmailAndPassword(
+                        email, password);
+                    if (result == null) {
+                      setState(() => error = 'please enter valid email');
+                    }
+                  }
                 },
+              ),
+              SizedBox(height: 20),
+              Text(
+                error,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 14,
+                ),
               )
             ],
           ),
