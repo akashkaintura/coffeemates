@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "800955025125",
+    "firebase_url": "https://coffeemates-a1743.firebaseio.com",
+    "project_id": "coffeemates-a1743",
+    "storage_bucket": "coffeemates-a1743.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800955025125:android:d56e124f1c2fce2574b60c",
+        "android_client_info": {
+          "package_name": "com.akash.coffeemate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800955025125-aoblcc9d7pknirsgg2e61tv7bitgnqjc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwRNR8uvMq0P6DK1xkpIgSqmE9S5T6xhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800955025125-aoblcc9d7pknirsgg2e61tv7bitgnqjc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
