@@ -1,4 +1,5 @@
 import 'package:coffeemate/models/user.dart';
+import 'package:coffeemate/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -32,6 +33,10 @@ class AuthService {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
+
+      // create a user with uid in firebase database
+      await DatabaseService(uid: user.uid).updateUserData('Dummy1', '0', 1);
+
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
