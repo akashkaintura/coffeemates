@@ -19,6 +19,7 @@ class _SettingsFormState extends State<SettingsForm> {
   String _currentName;
   String _currentSugars;
   int _currentStrength;
+  // String _purpose;
 
   @override
   Widget build(BuildContext context) {
