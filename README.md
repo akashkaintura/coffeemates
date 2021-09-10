@@ -1,4 +1,4 @@
-# coffeemate
+# Testing Project
 
 A new Flutter project.
 
